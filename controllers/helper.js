@@ -68,7 +68,12 @@ function resetForm() {
 function renderUI() {
   var content = "";
   for (var i = 0; i < employee_list.length; i++) {
-    var employee_total_salary = employee_list[i].totalSalary();
+    // todo: create new Employee to take methods
+    var employee = new Employee();
+    var currentEmployee = employee_list[i];
+    Object.assign(employee, currentEmployee);
+
+    var employee_total_salary = employee.totalSalary();
     var formatSalary = employee_total_salary.toLocaleString("vi-VN", {
       style: "currency",
       currency: "VND",
@@ -76,21 +81,21 @@ function renderUI() {
 
     content += `
     <tr>
-      <td>${employee_list[i].account}</td>
-      <td>${employee_list[i].fullName}</td>
-      <td>${employee_list[i].email}</td>
-      <td>${employee_list[i].workDay}</td>
-      <td>${employee_list[i].role}</td>									
+      <td>${employee.account}</td>
+      <td>${employee.fullName}</td>
+      <td>${employee.email}</td>
+      <td>${employee.workDay}</td>
+      <td>${employee.role}</td>									
       <td>${formatSalary}</td>
-      <td>${employee_list[i].rate()}</td>
+      <td>${employee.rate()}</td>
       <td>
         <button class="btn btn-warning px-3 py-2 mr-1 text-white" onclick="editEmployee('${
-          employee_list[i].account
+          employee.account
         }')" data-toggle="modal" data-target="#myModal">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
         <button class="btn btn-danger px-3 py-2" onclick="deleteEmployee('${
-          employee_list[i].account
+          employee.account
         }')">
           <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button>
@@ -123,4 +128,20 @@ function fetchData(account) {
       document.getElementById("gioLam").value = currentEmployee.workHourInMonth;
     }
   }
+}
+
+// todo: local setup
+function saveLocal(employee_list) {
+  localStorage.setItem("employee_data", JSON.stringify(employee_list));
+}
+
+function getLocal() {
+  var localEmployee = JSON.parse(localStorage.getItem("employee_data"));
+  if (localEmployee != null) {
+    employee_list = localEmployee;
+  }
+}
+
+function clearLocal() {
+  localStorage.removeItem("employee_data");
 }

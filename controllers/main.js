@@ -1,3 +1,7 @@
+// todo: load existing data from the local
+getLocal();
+renderUI();
+
 document.getElementById("btnThem").onclick = function () {
   // todo: disabled button
   btnToggle("btnThemNV", "btnCapNhat");
@@ -17,6 +21,8 @@ function addEmployee() {
   if (newEmployee != undefined) {
     // todo: view employees
     employee_list.push(newEmployee);
+
+    saveLocal(employee_list);
     renderUI();
 
     // todo: reset form
@@ -49,6 +55,7 @@ function updateEmployee() {
 
     // todo: re-render UI
     renderUI();
+    saveLocal(employee_list);
 
     // todo: notify update success
     document.getElementById("tbUpdate").innerHTML = "Cập nhật thành công";
@@ -63,5 +70,6 @@ function deleteEmployee(account) {
       employee_list.splice(i, 1);
     }
     renderUI();
+    saveLocal(employee_list);
   }
 }
