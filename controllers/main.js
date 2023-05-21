@@ -12,6 +12,9 @@ document.getElementById("btnThem").onclick = function () {
 
   // todo: change title modal
   document.getElementById("header-title").innerHTML = "Thêm nhân viên";
+
+  // todo: hide update success
+  document.getElementById("tbUpdate").innerHTML = "";
 };
 
 // todo: add employees
@@ -73,3 +76,40 @@ function deleteEmployee(account) {
     saveLocal(employee_list);
   }
 }
+
+// todo: find employees by rate
+// todo: active when press enter after typing search key
+document.getElementById("searchName").addEventListener("keypress", function(event) {
+  if (event.key == "Enter") {
+    document.getElementById("btnTimNV").click();
+  }
+})
+
+// todo: active when clicking the search button
+document.getElementById("btnTimNV").onclick = function () {
+  // todo: re-show all data
+  var rows = document.querySelectorAll("#tableDanhSach tr");
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].style.display = "table-row";
+  }
+  
+  // todo: get search data
+  var searchKey = document.getElementById("searchName").value;
+
+  // todo: find employee match the search key
+  for (var i = 0; i < employee_list.length; i++) {
+    // todo: retrieve methods - rate
+    var hideEmployee = new Employee();
+    var currentEmployee = employee_list[i];
+    Object.assign(hideEmployee, currentEmployee);
+
+    // todo: handle string: upperCase and no Ascents
+    var handleRate = removeAscent(hideEmployee.rate());
+    var handleKey = removeAscent(searchKey);
+
+    // todo: compare to filter data - display: none for data not match
+    if (!handleRate.includes(handleKey)) {
+      document.querySelector(`#tableDanhSach tr:nth-child(${i+1})`).style.display = "none";
+    }
+  }
+};

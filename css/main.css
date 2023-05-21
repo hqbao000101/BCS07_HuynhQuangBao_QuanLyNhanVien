@@ -27,6 +27,16 @@ table tbody tr td {
   vertical-align: middle !important;
 }
 
+#btnTimNV {
+  transition: all .3s;
+  cursor: pointer;
+}
+
+#btnTimNV:hover {
+  background-color: #1e82fb;
+  color: white;
+}
+
 @media (min-width: 1200px) {
   .container {
     max-width: 100%;
