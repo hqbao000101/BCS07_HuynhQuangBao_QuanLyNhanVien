@@ -25,7 +25,7 @@ function Employee(
     } else if (this.role == "Trưởng phòng") {
       return this.basicSalary * 2;
     } else if (this.role == "Nhân viên") {
-      return this.basicSalary * 1.5;
+      return this.basicSalary;
     }
   };
   this.rate = function () {
