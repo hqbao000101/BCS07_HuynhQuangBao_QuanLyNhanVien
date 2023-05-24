@@ -79,11 +79,12 @@ function deleteEmployee(account) {
 
 // todo: find employees by rate
 // todo: active when press enter after typing search key
-document.getElementById("searchName").addEventListener("keypress", function(event) {
-  if (event.key == "Enter") {
-    document.getElementById("btnTimNV").click();
-  }
-})
+// ! "keypress" and "keyup" event
+document.getElementById("searchName").addEventListener("keyup", function () {
+  // if (event.key == "Enter") {
+  document.getElementById("btnTimNV").click();
+  // }
+});
 
 // todo: active when clicking the search button
 document.getElementById("btnTimNV").onclick = function () {
@@ -92,7 +93,7 @@ document.getElementById("btnTimNV").onclick = function () {
   for (var i = 0; i < rows.length; i++) {
     rows[i].style.display = "table-row";
   }
-  
+
   // todo: get search data
   var searchKey = document.getElementById("searchName").value;
 
@@ -109,7 +110,9 @@ document.getElementById("btnTimNV").onclick = function () {
 
     // todo: compare to filter data - display: none for data not match
     if (!handleRate.includes(handleKey)) {
-      document.querySelector(`#tableDanhSach tr:nth-child(${i+1})`).style.display = "none";
+      document.querySelector(
+        `#tableDanhSach tr:nth-child(${i + 1})`
+      ).style.display = "none";
     }
   }
 };
